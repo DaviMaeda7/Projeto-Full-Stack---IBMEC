@@ -28,6 +28,9 @@ class AlunoTela(TelaBase):
     endpoint = f"/alunos/atualizar-aluno/{id}"
     return self.base.put(endpoint, params)
 
+  def deletar(self, id):
+    endpoint = f"/alunos/deletar-aluno/{id}"
+    return self.base.delete(endpoint)
 
   def criar_dataframe(self, dados):
     df = pd.DataFrame(dados)
@@ -41,10 +44,10 @@ class AlunoTela(TelaBase):
       self.criar_dataframe(dados)
     with abas[1]:
       id = st.text_input("Digite o ID do aluno:")
-      if id:
-        id = int(id)
+      if st.button("Consultar aluno por ID"):
         dados = self.consultar_por_id(id)
-        self.criar_dataframe(dados)
+        df = pd.DataFrame([dados])
+        st.dataframe(df)
     with abas[2]:
       matricula = st.text_input("Digite a matrícula do aluno")
       nome = st.text_input("Digite o nome do aluno")
@@ -57,11 +60,14 @@ class AlunoTela(TelaBase):
           "email": email,
           "endereco_id": int(endereco_id)
         }
-    
         retorno = self.criar(params)
-        st.success(retorno)
+        if retorno.status_code == 200:
+          st.success("Aluno criado com sucesso")
+        else:
+          st.error(retorno.text)
 
     with abas[3]:
+      id = st.text_input("Digite o ID do aluno que deseja atualizar")
       matricula = st.text_input("Digite a matrícula do aluno que deseja atualizar")
       nome = st.text_input("Digite o novo nome do aluno")
       email = st.text_input("Digite o novo email do aluno")
@@ -71,12 +77,25 @@ class AlunoTela(TelaBase):
           "matricula": matricula,
           "nome_aluno": nome,
           "email": email,
-          "endereco_id": int(endereco_id)
+          "endereco_id": endereco_id
         }
-        retorno = self.atualizar(matricula, params)
-        st.success(retorno)
+        params = {chave : valor for chave, valor in params.items() if valor not in ("", None)}
+        retorno = self.atualizar(int(id), params)
+        if retorno.status_code == 200:
+          st.success("Aluno atualizado com sucesso")
+        else:
+          st.error(retorno.text)
     with abas[4]:
-      pass
+      id = st.text_input("Digite o ID do aluno que deseja deletaar")
+      if st.button("Deletar aluno"):
+        if not id:
+          st.error("Digite o ID do aluno")
+        else:
+          retorno = self.deletar(int(id))
+          if retorno.status_code == 200:
+            st.success("Aluno deletado com sucesso")
+          else:
+            st.error(retorno.text)
     super().rodape()
 
 AlunoTela().renderizar()
