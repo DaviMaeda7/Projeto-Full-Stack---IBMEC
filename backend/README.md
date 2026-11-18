@@ -26,7 +26,7 @@ rode alembic upgrade head no terminal para adicionar as tabelas no db criado
 rode o uvicorn
 com o ambiente virtual ja ativado rode uvicorn app.main:app --reload
      
-## 8. Rodar o frontend (abra um terminal novo):
+## 6. Rodar o frontend (abra um terminal novo):
   
    uv sync
    uv run streamlit run app.py

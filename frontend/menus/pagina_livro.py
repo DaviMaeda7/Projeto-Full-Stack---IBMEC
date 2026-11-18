@@ -1,4 +1,4 @@
-from components.base_tela import TelaBase
+from componentes.base_tela import TelaBase
 import streamlit as st
 from connection.base_api import BaseAPI
 import pandas as pd
