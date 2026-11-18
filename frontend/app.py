@@ -10,13 +10,17 @@ pagina_aluno = st.Page("menus/pagina_aluno.py", title="Pagina de Alunos", icon="
 pagina_endereco = st.Page("menus/pagina_endereco.py", title="Pagina de Endereços", icon=":material/location_on:")
 pagina_nota = st.Page("menus/pagina_nota.py", title="Pagina de Notas", icon=":material/grade:")
 pagina_disciplina = st.Page("menus/pagina_disciplina.py", title="Pagina de Disciplinas", icon=":material/book:")
+pagina_livro = st.Page("menus/pagina_livro.py", title="Pagina de Livros", icon=":material/menu_book:")
+pagina_emprestimo = st.Page("menus/pagina_emprestimo.py", title="Pagina de Empréstimos", icon=":material/swap_horiz:")
 
 #cria o menu lateral do frontend
 menus = {
   "Alunos": [pagina_aluno],
   "Endereços": [pagina_endereco],
   "Disciplinas": [pagina_disciplina],
-  "Notas": [pagina_nota]
+  "Notas": [pagina_nota],
+  "Livros": [pagina_livro],
+  "Empréstimos": [pagina_emprestimo]
 }
 pg = st.navigation(menus)
 #execcuta o app.py

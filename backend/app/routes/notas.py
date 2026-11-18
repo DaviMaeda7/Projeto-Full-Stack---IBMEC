@@ -20,31 +20,18 @@ def primeira_api():
 
 @router.get("/pegar-dados-notas")
 def pegar_dados_notas(db: Session = Depends(get_db)):
-    # query = "SELECT * FROM tb_notas"
-    # df = pd.read_sql(query, engine)
-    # df = df.astype(object).where(pd.notnull(df), None)
-    # return df.to_dict(orient="records")
     notas = db.scalars(select(Nota).order_by(Nota.id)).all()
     return notas
 
 
 @router.get("/pegar-dados-notas-por-id/{id}")
 def pegar_dados_notas_por_id(id: int, db: Session = Depends(get_db)):
-    # query = text("SELECT * FROM tb_notas WHERE id = :id")
-    # df = pd.read_sql(query, engine, params={"id": id})
-    # df = df.astype(object).where(pd.notnull(df), None)
-    # return df.to_dict(orient="records")
     nota = db.get(Nota, id)
     return nota
 
 
 @router.post("/criar-nota")
 def criar_nota(nota: NotaIn, db: Session = Depends(get_db)):
-    # # Transformando dict em df
-    # df = pd.DataFrame([nota.model_dump()])
-    # # Insert no banco de dados
-    # df.to_sql("tb_notas", engine, if_exists="append", index=False)
-    # return {"mensagem": "Nota cadastrada com sucesso!"}
     dados = Nota(
         nome_id = nota.nome_id,
         disciplina_id = nota.disciplina_id,

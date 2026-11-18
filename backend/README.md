@@ -21,11 +21,13 @@ crie um novo file para o .env com as informações do db (coloque no .gitignore)
 
 rode alembic upgrade head no terminal para adicionar as tabelas no db criado
 
-## 5. API
+## 5. Rodar o backend
 
-rode o uvicorn para testar a API com o postman
+rode o uvicorn
 com o ambiente virtual ja ativado rode uvicorn app.main:app --reload
-
-## 6. Postman
-
-popule o db com o postman e teste todas as rotas da API
+     
+## 8. Rodar o frontend (abra um terminal novo):
+  
+   uv sync
+   uv run streamlit run app.py
+   
